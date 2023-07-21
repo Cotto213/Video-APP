@@ -7,57 +7,59 @@ import ThumbDownOutline from 'vue-material-design-icons/ThumbDownOutline.vue'
 import RecommendedVideos from '@/Components/RecommendedVideos.vue';
 
 
-
-//defineProps({
-   // canLogin: Boolean,
-//});
+defineProps({
+   videos: Object,
+   comments: Array,
+   recommendedVideos: Array
+});
 </script>
 
 <template>
-      <Head title="Video-App" />
+   <Head title="Video-App" />
 
-      <NavLayout>
-         <div class=" xl:flex">
-            <div class=" p-3">
-               <video src="/videos/video1.mp4" controls autoplay></video>
-               <div class=" text-white text-2xl font-extrabold mt-4"> Ducks chillin</div>
-               <div class=" flex items-center mb-4">
+   <NavLayout>
+      <div class=" xl:flex">
+         <div class=" p-3">
+            <video @mouseover="show = true" :src="videos.video || ''" controls autoplay />
+            <div class="text-white text-2xl font-extrabold mt-4">{{ videos.title }}</div>
+            <div class=" flex items-center mb-4">
 
-                  <img class=" rounded-full m-1.5 mt-2 flex items-baseline w-8 h-8"
-                     :src="'https://lh3.googleusercontent.com/wNzfWfYleyTs_I4dOn4smsOXyqsdMg6JmMJLRLNQJdjPgKMjeKn55KoAWc88C4fCVnyEDQ=s85' || ''" />
+               <img class=" rounded-full m-1.5 mt-2 flex items-baseline w-8 h-8"
+                  :src="'https://lh3.googleusercontent.com/wNzfWfYleyTs_I4dOn4smsOXyqsdMg6JmMJLRLNQJdjPgKMjeKn55KoAWc88C4fCVnyEDQ=s85' || ''" />
 
-                  <div class=" pl-2 mt-1 ">
-                     <p class=" text-white text-lg font-extrabold flex items-center">
-                        Cotto Developer
-                        <CheckCircle fillColor="#888888" :size="17" />
-                     </p>
-                     <div class=" text-sm text-gray-300 font-extrabold">20k views - 3 days ago</div>
-                  </div>
+               <div class=" pl-2 mt-1 ">
+                  <p class=" text-white text-lg font-extrabold flex items-center">
+                     Cotto Developer
+                     <CheckCircle fillColor="#888888" :size="17" />
+                  </p>
+                  <div class=" text-sm text-gray-300 font-extrabold">{{ videos.views }}</div>
                </div>
+            </div>
 
-               <div class=" bg-[#8684843f]  rounded-lg w-full p-3 text-white">
-                  <div class=" text-white text-lg font-extrabold ">20k views - 3 days ago</div>
-                  <div class=" text-sm font-extrabold mb-6">
-                     Jaja texto
-                  </div>
-                  <div class=" text-sm font-extrabold">
-                     Jaja texto
-                  </div>
+            <div class=" bg-[#8684843f]  rounded-lg w-full p-3 text-white">
+               <div class=" text-white text-lg font-extrabold ">{{ videos.views }}</div>
+               <div class=" text-sm font-extrabold mb-6">
+                  Jaja texto
                </div>
+               <div class=" text-sm font-extrabold">
+                  Jaja texto
+               </div>
+            </div>
 
-               <div class="mt-6">
-                  <div class=" text-white text-lg font-extrabold">12 comments</div>
+            <div class="mt-6">
+               <div class=" text-white text-lg font-extrabold">{{ comments.length }} Comments</div>
+               <div v-for="comment in comments" :key="comment">
                   <div class=" flex items-flex mb-4 mt-2 ">
                      <img class=" rounded-full mt-2 w-12 h-12 "
                         :src="'https://picsum.photos/id/' + (Math.random() * 100).toFixed(0) + '/100'" />
 
                      <div class="pl-6 mt-1">
                         <div class=" text-white font-extrabold flex items-baseline">
-                           <div>Abby</div>
-                           <div class=" text-gray-400 pl-3">5 days ago</div>
+                           <div>{{ comment.user }}</div>
+                           <div class=" text-gray-400 pl-3">{{ comment.time }}</div>
                         </div>
                         <div class=" text-gray-50 text-sm font-semibold flex">
-                           sadasd
+                           {{ comment.text }}
                         </div>
                         <div class=" mt-4 flex items-center">
                            <ThumbUpOutline fillColor="white" :size="20" class="pr-2" />
@@ -72,27 +74,22 @@ import RecommendedVideos from '@/Components/RecommendedVideos.vue';
                      </div>
 
                   </div>
-
                </div>
 
-            </div>
-
-
-            <div class="w-[500px] p-3 sm:block hidden">
-               <div class="flex mb-3">
-                  <RecommendedVideos  
-               :vid="{
-                  title: 'Dogs Chillin',
-                  video:'/videos/video1.mp4',
-                  thumbnail:'/videos/thumbnail/video1.png', 
-                  user:'Cotto',
-                  views:'3k views - 1 day ago'
-               }"
-               />
-               </div>
             </div>
 
          </div>
+
+
+         <div class="w-[500px] p-3 sm:block hidden">
+    <div v-for="vid in recommendedVideos" :key="vid">
+        <Link class="flex mb-3 overflow-auto" :href="route('video.show', {id:vid.id})">
+            <RecommendedVideos :vid="vid" />
+        </Link>
+    </div>
+</div>
+
+      </div>
 
 
 

@@ -20,7 +20,7 @@ defineProps({
         :title="video.title"
          :user="video.user"
          :views="video.views"
-         :image="'https://picsum.photos/id/${index}/100'"
+         :image="'https://picsum.photos/id/' + (Math.random() * 100).toFixed(0) + '/100'"
          :videoUrl="video.video"
          :thumbnail="video.thumbnail"
      />
