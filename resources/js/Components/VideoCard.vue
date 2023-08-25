@@ -1,7 +1,7 @@
 <template>
-    <div class="relative">
+    <div class="relative hover:z-50">
       <div
-        class="rounded-lg bg-black m-2 transition ease-in-out delay-150 hover:translate-y-8 hover:scale-125 hover:bg-[gray] duration-300"
+        class="rounded-lg bg-black m-2 transition ease-in-out delay-150 hover:translate-y-8 hover:scale-125 hover:bg-[gray] duration-300 "
         :class="{ 'absolute z-30': show && width > 639 }"
       >
         <div

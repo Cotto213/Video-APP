@@ -28,12 +28,8 @@ const resize = () => {
 };
 
 const isNavOverlay = () => {
-  if (usePage().url === '/') openSideNav.value = !openSideNav.value;
-  if (usePage().url === '/upload-video') openSideNavOverlay.value = !openSideNavOverlay.value;
-  if (usePage().url === '/delete-video') openSideNavOverlay.value = !openSideNavOverlay.value;
-  if (width.value < 640) openSideNavOverlay.value = !openSideNavOverlay.value;
-  if (usePage().url !== '/' && width.value < 640) openSideNavOverlay.value = !openSideNavOverlay.value;
-  if (usePage().props.video) openSideNavOverlay.value = !openSideNavOverlay.value;
+  openSideNav.value = !openSideNav.value;
+ 
 };
 
 </script>
@@ -71,7 +67,7 @@ const isNavOverlay = () => {
     </div>
 
     <div v-if="width > 639">
-      <div v-if="$page.url === '/' " id="SideNav" class="h-[100%] fixed z-0 bg-black w-[240px]" :class="[!openSideNav ? 'w-[70px]' : 'w-[240px]']">
+      <div  id="SideNav" class="h-[100%] fixed z-0 bg-black w-[240px]" :class="[!openSideNav ? 'w-[70px]' : 'w-[240px]']">
         <ul :class="[!openSideNav ? 'p-2' : 'px-5 pb-2 pt-[7px]']" class="mt-[60px] w-full">
           <SideNavItem :openSideNav="openSideNav" iconString="Home" />
           <SideNavItem :openSideNav="openSideNav" iconString="Add Video" />
@@ -99,60 +95,13 @@ const isNavOverlay = () => {
       </div>
     </div>
 
-    <!-- Overlay Nav Section -->
-    <div
-      @click="openSideNavOverlay = false"
-      class="bg-black bg-opacity-70 fixed z-50 w-full h-screen"
-      :class="openSideNavOverlay ? 'animate__animated animate__fadeIn animate__faster' : 'hidden z-[-1]'"
-    />
-    <div
-      id="SideNavOverlay"
-      ref="sideNavOverlay"
-      class="h-[100%] fixed z-50 bg-black mt-[9px] w-[240px]"
-      :class="openSideNavOverlay ? 'animate__animated animate__slideInLeft animate__faster' : 'animate__animated animate__slideOutLeft animate__faster'"
-    >
-      <div class="flex items-center">
-        <button @click="isNavOverlay()" class="p-2 ml-3 rounded-full hover:bg-gray-800 cursor-pointer">
-          <MenuIcon fillColor="#FFFFFF" :size="26" />
-        </button>
-        <div class="mx-2"></div>
-        <div class="flex text-white items-center justify-center cursor-pointer">
-          Video-APP
-        </div>
-      </div>
-      <ul class="w-full px-5 py-2 p-2 mt-2">
-        <SideNavItem :openSideNav="true" iconString="Home" />
-        <SideNavItem :openSideNav="true" iconString="Add Video" />
-        <SideNavItem :openSideNav="true" iconString="Delete Video" />
-        <div class="border-b border-b-gray-700 my-2.5"></div>
-        <SideNavItem :openSideNav="true" iconString="History" />
-        <SideNavItem :openSideNav="true" iconString="Liked" />
-        <SideNavItem :openSideNav="true" iconString="Subscriptions" />
-        <SideNavItem :openSideNav="true" iconString="Watch Later" />
-        <SideNavItem :openSideNav="true" iconString="Library" />
-        <div v-if="true">
-          <div class="border-b border-b-gray-700 my-2.5"></div>
-          <div class="text-gray-600 text-[14px] text-extrabold">
-            CopyRight
-            <div>Contact us</div>
-            Cotto Developer
-          </div>
-          <div class="border-b border-b-gray-700 my-2.5"></div>
-          <div class="text-gray-600 text-[14px] text-extrabold">
-            Terms of Privacy & Policy
-            <div>Video-App</div>
-          </div>
-        </div>
-      </ul>
-    </div>
-    <!-- Overlay Nav Section End -->
+    
 
     <div
-      class="w-[100%] h-[calc(100vh-60px)] absolute right-0 top-[60px]"
+      class=" h-[calc(100vh-60px)] absolute right-0 top-[60px]"
       :class="{
         'w-[calc(100%-70px)]': !openSideNav,
         'w-[calc(100%-240px)]': openSideNav,
-        'w-[100vw] xl:w-[calc(100%-80px)]': $page.url !== '/',
         'w-[100vw]': width < 639
       }"
     >

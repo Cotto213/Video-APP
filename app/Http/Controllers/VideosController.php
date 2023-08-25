@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
-use App\Models\Comments;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 use Inertia\Inertia;
 class VideosController extends Controller
 {
-  
+
 
     /**
      * Store a newly created resource in storage.
@@ -26,13 +26,13 @@ class VideosController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function show( $id)
     {
         return Inertia::render('Video', [
             'videos' => Video::find($id),
-            'comments' => Comments::all(),
+            'comments' => Comment::all(),
             'recommendedVideos'=> Video::inRandomOrder()->get(),
 
 
