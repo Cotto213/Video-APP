@@ -18,9 +18,10 @@ watch(() => show.value, (show) => {
 </script>
 
 <template>
-   <div @mouseover="show = true" @mouseleave="show = false">
+   <div @mouseover="show = true" @mouseleave="show = false" class="aspect-video w-[200px] shrink-0">
       <img width="340" class="aspect-video cursor-pointer rounded-lg" :src="vid.thumbnail || ''"
          :class="show ? 'delay-350 hidden' : ''" />
+         
       <div class="w-full h-full aspect-video cursor-pointer" :class="show ? '' : 'delay-350 hidden'">
          <video width="340" ref="video" :src="vid.video || ''" type="video/mp4" />
       </div>
@@ -30,13 +31,17 @@ watch(() => show.value, (show) => {
          <div class="text-[15px] pb-1.5 font-extrabold w-full cursor-pointer">
             {{ vid.title }}
          </div>
+         
          <p class="text-[12px] text-gray-300 font-extrabold flex gap-1 items-center cursor-pointer">
             {{ vid.user }}
             <CheckCircle fillColor="#888888" :size="17" />
          </p>
+         
          <div  class=" whitespace-nowrap text-sm mb-1 text-gray-300 cursor-pointer">
             {{ vid.views }}
          </div>
       </div>
-   </div>
+      </div>
+  
+
 </template>

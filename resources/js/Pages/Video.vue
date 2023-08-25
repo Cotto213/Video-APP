@@ -83,7 +83,7 @@ defineProps({
 
          <div class="w-[500px] p-3 sm:block hidden">
     <div v-for="vid in recommendedVideos" :key="vid">
-        <Link class="flex mb-3 overflow-auto" :href="route('video.show', {id:vid.id})">
+        <Link class="flex mb-3 overflow-auto" :href="route('videos.show', {id:vid.id})">
             <RecommendedVideos :vid="vid" />
         </Link>
     </div>
