@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\UserController;
 use App\Models\Video;
 use App\Models\Comment;
 use App\Http\Controllers\ProfileController;
@@ -17,7 +19,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () { 
+Route::get('/', function () {
     return Inertia::render('Welcome', [
         'videos' => Video::inRandomOrder()->get()
 ]);
@@ -27,5 +29,9 @@ Route::get('/upload-video', function () { return Inertia::render('UploadVideo');
 
 Route::get('/videos/{id}', [\App\Http\Controllers\VideosController::class, 'show']) ->name('videos.show');
 
+Route::resource("user",UserController::class)->except("index")->names(["create"=>"user.register"]);
 
-require __DIR__.'/auth.php';
+Route::get('user/login', [UserController::class, 'getLogin'])->name('user.login');
+Route::post('user/login', [UserController::class, 'postLogin']);
+
+
