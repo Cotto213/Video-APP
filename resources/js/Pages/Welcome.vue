@@ -10,13 +10,13 @@ defineProps({
 
 <template>
     <Head title="Video-App" />
-    
+
     <NavLayout >
-       
-     <div class="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2"> 
+
+     <div class="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2">
       <div v-for="video, index in videos" :key="video">
          <Link :href="route ('videos.show', {id: video.id})">
-            <VideoCard 
+            <VideoCard
         :title="video.title"
          :user="video.user"
          :views="video.views"
@@ -26,10 +26,10 @@ defineProps({
      />
          </Link>
       </div>
-   
-        
+
+
     </div>
- 
+
  </NavLayout>
 
 </template>

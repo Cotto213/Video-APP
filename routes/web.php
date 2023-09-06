@@ -30,8 +30,13 @@ Route::get('/upload-video', function () { return Inertia::render('UploadVideo');
 Route::get('/videos/{id}', [\App\Http\Controllers\VideosController::class, 'show']) ->name('videos.show');
 
 Route::resource("user",UserController::class)->except("index")->names(["create"=>"user.register"]);
+Route::resource("user",UserController::class)->except("index")->names(["getLogin"=>"user.login"]);
 
-Route::get('user/login', [UserController::class, 'getLogin'])->name('user.login');
+Route::get('/login', [UserController::class, 'getLogin'])->name('login');
+Route::get('/register', [UserController::class, 'create'])->name('register');
+
+
+
 Route::post('user/login', [UserController::class, 'postLogin']);
 
 
