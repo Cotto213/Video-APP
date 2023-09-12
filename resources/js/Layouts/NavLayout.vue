@@ -1,10 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-
-import { usePage } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 import MenuIcon from 'vue-material-design-icons/Menu.vue';
 import MagnifyIcon from 'vue-material-design-icons/Magnify.vue';
 import SideNavItem from '@/Components/SideNavItem.vue';
+import 'flowbite'
 
 let openSideNavOverlay = ref(false);
 let width = ref(document.documentElement.clientWidth);
@@ -29,7 +29,7 @@ const resize = () => {
 
 const isNavOverlay = () => {
   openSideNav.value = !openSideNav.value;
- 
+
 };
 
 </script>
@@ -46,7 +46,7 @@ const isNavOverlay = () => {
           Video-APP
         </div>
       </div>
-      
+
       <div class="w-[600px] md:block hidden">
         <div class="rounded-full flex items-center bg-black">
           <input
@@ -58,11 +58,29 @@ const isNavOverlay = () => {
         </div>
       </div>
       <div>
-        <img
-          class="rounded-full mx-8"
-          width="35"
-          src="https://lh3.googleusercontent.com/wNzfWfYleyTs_I4dOn4smsOXyqsdMg6JmMJLRLNQJdjPgKMjeKn55KoAWc88C4fCVnyEDQ=s85"
-        />
+          <img id="avatarButton"
+               type="button"
+               data-dropdown-toggle="userDropdown"
+               data-dropdown-placement="bottom-start"
+               class=" w-10 h-8 mr-16 rounded-full cursor-pointer"
+               :src="'https://picsum.photos/id/' + (Math.random() * 100).toFixed(0) + '/100'"
+               alt="User dropdown">
+
+          <!-- Dropdown menu -->
+          <div id="userDropdown" class="z-10 hidden bg-white divide-y text-center divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+              <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                  <div>Bonnie Green</div>
+                  <div class="font-medium truncate">name@flowbite.com</div>
+              </div>
+              <ul class="py-2 text-sm text-gray-700 " aria-labelledby="avatarButton">
+                  <li>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-200 ">Dashboard</a>
+                  </li>
+              </ul>
+              <Link class="py-2 text-sm text-gray-700 " :href="route('logout')" method="post" as="button">
+                  <a v-if="$page.props.auth.user" class="block px-4 py-2 text-black font-bold ">Sign out</a>
+              </Link>
+          </div>
       </div>
     </div>
 
@@ -77,7 +95,10 @@ const isNavOverlay = () => {
           <SideNavItem :openSideNav="openSideNav" iconString="Liked" />
           <SideNavItem :openSideNav="openSideNav" iconString="Subscriptions" />
           <SideNavItem :openSideNav="openSideNav" iconString="Watch Later" />
-          <SideNavItem :openSideNav="openSideNav" iconString="Library" />
+            <SideNavItem :openSideNav="openSideNav" iconString="Library" />
+            <Link :href="route('logout')" method="post" as="button">
+                <SideNavItem v-if="$page.props.auth.user" :openSideNav="openSideNav" iconString="Logout" />
+            </Link>
           <div v-if="openSideNav">
             <div class="border-b border-b-gray-700 my-2.5" />
             <div class="text-gray-600 text-[14px] text-extrabold">
@@ -95,7 +116,7 @@ const isNavOverlay = () => {
       </div>
     </div>
 
-    
+
 
     <div
       class=" h-[calc(100vh-60px)] absolute right-0 top-[60px]"

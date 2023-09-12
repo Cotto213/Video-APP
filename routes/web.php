@@ -19,24 +19,36 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'videos' => Video::inRandomOrder()->get()
-]);
-})-> name('home');
-Route::get('/delete-video', function () { return Inertia::render('DeleteVideo');}) ->name('deleteVideo');
-Route::get('/upload-video', function () { return Inertia::render('UploadVideo');}) ->name('uploadVideo');
+
+
 
 Route::get('/videos/{id}', [\App\Http\Controllers\VideosController::class, 'show']) ->name('videos.show');
 
-Route::resource("user",UserController::class)->except("index")->names(["create"=>"user.register"]);
-Route::resource("user",UserController::class)->except("index")->names(["getLogin"=>"user.login"]);
+Route::resource("user",UserController::class)->except("index")->names(["create"=>"register"]);
+Route::resource("user",UserController::class)->except("index")->names(["getLogin"=>"login"]);
+Route::resource("user",UserController::class)->except("index")->names(["show"=>"profile"]);
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login', [UserController::class, 'getLogin'])->name('login');
+    Route::post('/login', [UserController::class, 'postLogin']);
+    Route::get('/register', [UserController::class, 'getRegister'])->name('register');
+    Route::post('/register', [UserController::class, 'postRegister']);
+});
 
-Route::get('/login', [UserController::class, 'getLogin'])->name('login');
-Route::get('/register', [UserController::class, 'create'])->name('register');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/delete-video', function () { return Inertia::render('DeleteVideo');}) ->name('deleteVideo');
+    Route::get('/upload-video', function () { return Inertia::render('UploadVideo');}) ->name('uploadVideo');
+    Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+    Route::get('/', function () {
+        return Inertia::render('Welcome', [
+            'videos' => Video::inRandomOrder()->get()
+        ]);
+    })->name('home');
+    Route::get('/profile',[UserController::class, 'show'])->name('profile');
 
 
 
-Route::post('user/login', [UserController::class, 'postLogin']);
+});
+
+
 
 

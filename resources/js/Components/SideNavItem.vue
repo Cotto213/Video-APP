@@ -1,5 +1,5 @@
 <template>
-    <li 
+    <li
     :class="[!openSideNav ? 'p-2' : 'flex items-center p-2']"
         class=" text-white text-center text-sm font-semibold hover:bg-gray-700 rounded-lg cursor-pointer">
         <div :class="[!openSideNav ? ' w-full flex justify-center' : '']">
@@ -29,14 +29,14 @@ const props = defineProps({
 })
 const { openSideNav, iconString } = toRefs(props)
 let icon = null
-if (iconString.value == 'Home') icon = Home
-if (iconString.value == 'Subscriptions') icon = FolderPlayOutLine
-if (iconString.value == 'Library') icon = ImageMultiple
-if (iconString.value == 'Liked') icon = ThumbUpOutline
-if (iconString.value == 'History') icon = History
-if (iconString.value == 'Watch Later') icon = ClockOutline
-if (iconString.value == 'Add Video') icon = VideoPlusOutlineIcon
-if (iconString.value == 'Delete Video') icon = DeleteIcon
+if (iconString.value === 'Home') icon = Home
+if (iconString.value === 'Subscriptions') icon = FolderPlayOutLine
+if (iconString.value === 'Library') icon = ImageMultiple
+if (iconString.value === 'Liked') icon = ThumbUpOutline
+if (iconString.value === 'History') icon = History
+if (iconString.value === 'Watch Later') icon = ClockOutline
+if (iconString.value === 'Add Video') icon = VideoPlusOutlineIcon
+if (iconString.value === 'Delete Video') icon = DeleteIcon
 
 </script>
 
